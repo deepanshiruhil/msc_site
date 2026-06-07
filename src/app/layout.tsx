@@ -12,25 +12,33 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
+    // suppressHydrationWarning stops React warning about the class we add below
     <html lang="en" suppressHydrationWarning>
       <head>
-        {/* 1. No-flash theme script — runs before first paint */}
+        {/*
+          Runs BEFORE first paint — reads localStorage and applies
+          "light" class if the user previously chose light mode.
+          Default (no class) = dark mode, which matches the original site.
+        */}
         <script
           dangerouslySetInnerHTML={{
             __html: `
               (function(){
                 try {
-                  var s = localStorage.getItem('theme');
-                  var p = window.matchMedia('(prefers-color-scheme: dark)').matches;
-                  if (s === 'dark' || (!s && p)) {
-                    document.documentElement.classList.add('dark');
+                  var t = localStorage.getItem('msc-theme');
+                  if (t === 'light') {
+                    document.documentElement.classList.add('light');
                   }
-                } catch(_){}
+                } catch(e){}
               })();
             `,
           }}
         />
-        {/* 2. Scroll-reveal observer — wires .reveal and .reveal-stagger */}
+        {/*
+          Scroll-reveal observer.
+          Watches every .reveal and .reveal-stagger element.
+          Adds "visible" class when the element enters the viewport.
+        */}
         <script
           dangerouslySetInnerHTML={{
             __html: `
@@ -38,17 +46,17 @@ export default function RootLayout({
                 function init(){
                   var els = document.querySelectorAll('.reveal, .reveal-stagger');
                   if (!els.length) return;
-                  var obs = new IntersectionObserver(function(entries){
+                  var io = new IntersectionObserver(function(entries){
                     entries.forEach(function(e){
-                      if(e.isIntersecting){
+                      if (e.isIntersecting){
                         e.target.classList.add('visible');
-                        obs.unobserve(e.target);
+                        io.unobserve(e.target);
                       }
                     });
-                  }, { threshold: 0.12 });
-                  els.forEach(function(el){ obs.observe(el); });
+                  }, { threshold: 0.1 });
+                  els.forEach(function(el){ io.observe(el); });
                 }
-                if (document.readyState === 'loading') {
+                if (document.readyState === 'loading'){
                   document.addEventListener('DOMContentLoaded', init);
                 } else {
                   init();
