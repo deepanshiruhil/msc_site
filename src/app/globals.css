@@ -1,414 +1,89 @@
-@import "tailwindcss";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-/* Theme variables */
-:root {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
+@layer base {
+  /* LIGHT MODE — warm beige palette
+     (replaces the stark white default) */
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --background:          40 28% 96%;   /* #F6F2EC — warm off-white beige */
+    --foreground:          30 15% 12%;   /* dark warm brown-black         */
+
+    --card:                40 22% 92%;   /* #EDE8DF — deeper beige card   */
+    --card-foreground:     30 15% 12%;
+
+    --popover:             40 28% 96%;
+    --popover-foreground:  30 15% 12%;
+
+    --primary:             214 80% 44%;  /* MSC blue                      */
+    --primary-foreground:  0 0% 100%;
+
+    --secondary:           40 18% 86%;   /* #DDD8CE — muted warm grey     */
+    --secondary-foreground: 30 15% 25%;
+
+    --muted:               40 14% 89%;
+    --muted-foreground:    30 10% 46%;
+
+    --accent:              214 65% 91%;
+    --accent-foreground:   214 80% 28%;
+
+    --destructive:         0 84% 60%;
+    --destructive-foreground: 0 0% 98%;
+
+    --border:              40 16% 80%;
+    --input:               40 16% 83%;
+    --ring:                214 80% 44%;
+
+    --radius: 0.75rem;
+  }
+
+  /* ─────────────────────────────────────────
+     DARK MODE — keeps the current muted-navy
+     tone the site already uses
+  ───────────────────────────────────────── */
+  .dark {
+    --background:          222 16% 10%;  /* current dark bg               */
+    --foreground:          220 10% 88%;
+
+    --card:                222 16% 14%;
+    --card-foreground:     220 10% 88%;
+
+    --popover:             222 16% 10%;
+    --popover-foreground:  220 10% 88%;
+
+    --primary:             214 72% 62%;
+    --primary-foreground:  0 0% 100%;
+
+    --secondary:           222 14% 20%;
+    --secondary-foreground: 220 10% 78%;
+
+    --muted:               222 14% 18%;
+    --muted-foreground:    220 10% 52%;
+
+    --accent:              222 14% 22%;
+    --accent-foreground:   220 10% 88%;
+
+    --destructive:         0 62% 50%;
+    --destructive-foreground: 0 0% 98%;
+
+    --border:              222 14% 22%;
+    --input:               222 14% 22%;
+    --ring:                214 72% 62%;
   }
 }
 
-body {
-  background: transparent;
-  color: #ffffff;
-  font-family: var(--font-geist-sans), system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-  transition: background-color 0.3s ease, color 0.3s ease;
-  overflow-x: hidden;
-}
+@layer base {
+  * {
+    @apply border-border;
+  }
 
-img,
-video,
-canvas,
-svg {
-  max-width: 100%;
-}
+  body {
+    @apply bg-background text-foreground;
+    font-feature-settings: "rlig" 1, "calt" 1;
+  }
 
-/* Light mode overrides */
-[data-theme='light'] {
-  --background-light: #ffffff;
-  --text-light: #1d1d1f;
-  --text-secondary-light: #6e6e73;
-  --box-bg-light: #f5f7fa;
-  --box-border-light: #d1d5db;
-}
-
-[data-theme='light'] body {
-  color: #1d1d1f;
-}
-
-[data-theme='light'] .background-with-svg {
-  background: #ffffff !important;
-}
-
-[data-theme='light'] .background-with-svg::after,
-[data-theme='light'] .background-with-svg::before {
-  display: none !important;
-}
-
-[data-theme='light'] .aurora-container {
-  opacity: 0 !important;
-}
-
-/* Light mode text colors */
-[data-theme='light'] body {
-  color: #1d1d1f;
-}
-
-/* Blue boxes content should be white */
-[data-theme='light'] .faq-question,
-[data-theme='light'] .faq-answer,
-[data-theme='light'] .event-card-title,
-[data-theme='light'] .event-card-description {
-  color: #ffffff !important;
-}
-
-[data-theme='light'] .footer * {
-  color: #ffffff !important;
-}
-
-[data-theme='light'] .pill-nav,
-[data-theme='light'] .pill-item,
-[data-theme='light'] .pill-item a {
-  color: #ffffff !important;
-}
-
-[data-theme='light'] .inner-content {
-  color: #ffffff !important;
-}
-
-[data-theme='light'] .journey-text-container,
-[data-theme='light'] .journey-prefix,
-[data-theme='light'] .journey-typing {
-  color: #1d1d1f;
-}
-
-[data-theme='light'] .contact-us-title,
-[data-theme='light'] .contact-us-subtitle,
-[data-theme='light'] .still-have-questions-title,
-[data-theme='light'] .still-have-questions-subtitle {
-  color: #ffffff !important;
-}
-
-/* Regular text - mix of blue and black */
-[data-theme='light'] .main-title .shiny-title {
-  color: #0066cc;
-}
-
-[data-theme='light'] .main-title .subtitle,
-[data-theme='light'] .goals-page-title,
-[data-theme='light'] .about-title,
-[data-theme='light'] .faq-title,
-[data-theme='light'] .recent-events-title {
-  color: #1d1d1f;
-}
-
-[data-theme='light'] .contact-us-title,
-[data-theme='light'] .contact-us-subtitle {
-  color: #1d1d1f;
-}
-
-/* Other text in black */
-[data-theme='light'] .about-subtitle,
-[data-theme='light'] .about-description,
-[data-theme='light'] .event-card-title:not(.event-card-wrapper .event-card-title),
-[data-theme='light'] .event-card-description:not(.event-card-wrapper .event-card-description) {
-  color: #1d1d1f;
-}
-
-/* Light mode box colors - keep them blue */
-[data-theme='light'] .faq-accordion {
-  background: rgba(96, 165, 250, 0.15) !important;
-  border-color: rgba(96, 165, 250, 0.3) !important;
-}
-
-[data-theme='light'] .event-card-wrapper,
-[data-theme='light'] .still-have-questions-content {
-  background: rgba(96, 165, 250, 0.15) !important;
-  border-color: rgba(96, 165, 250, 0.3) !important;
-}
-
-[data-theme='light'] .footer {
-  background: rgba(0, 51, 102, 0.8) !important;
-  backdrop-filter: blur(10px) !important;
-}
-
-[data-theme='light'] .footer-social-icon {
-  background: rgba(96, 165, 250, 0.2);
-  border-color: rgba(96, 165, 250, 0.3);
-}
-
-[data-theme='light'] .pill-nav,
-[data-theme='light'] .pill-item {
-  background: rgba(96, 165, 250, 0.2) !important;
-  border-color: rgba(96, 165, 250, 0.3) !important;
-}
-
-[data-theme='light'] .inner-content {
-  background: #0066cc !important;
-  border-color: #0066cc !important;
-}
-
-/* Background with SVG behind Aurora */
-.background-with-svg {
-  background: 
-    url('/background.svg') center/cover no-repeat,
-    linear-gradient(135deg, #050505 0%, #0f0f1a 50%, #0a0f1a 100%);
-  background-blend-mode: overlay;
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  z-index: -10;
-  pointer-events: none;
-}
-
-.background-with-svg::after {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: rgba(0, 0, 0, 0.7);
-  z-index: 0;
-}
-
-.background-with-svg::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: url('/background.svg') center/cover no-repeat;
-  opacity: 0.4;
-  z-index: -20;
-}
-
-/* Custom gradient background with image */
-.tech-gradient {
-  background: 
-    url('/background.svg') center/cover no-repeat,
-    linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 50%, #16213e 100%);
-  background-blend-mode: overlay;
-  position: relative;
-}
-
-.tech-gradient::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: url('/background.svg') center/cover no-repeat;
-  opacity: 0.4;
-  z-index: -1;
-}
-
-/* Subtle tech pattern overlay */
-.tech-pattern::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-image: 
-    radial-gradient(circle at 20% 20%, rgba(148, 163, 184, 0.03) 1px, transparent 1px),
-    radial-gradient(circle at 80% 80%, rgba(148, 163, 184, 0.02) 1px, transparent 1px);
-  background-size: 100px 100px;
-  pointer-events: none;
-  opacity: 0.4;
-}
-
-.tech-pattern:hover::before {
-  opacity: 0.6;
-  transition: opacity 0.3s ease;
-}
-
-/* Microsoft Logo positioning */
-.microsoft-logo {
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
-  top: 40px;
-  width: 165px;
-  height: 300px;
-  z-index: 20;
-}
-
-.microsoft-logo .logo-image {
-  filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.5));
-  transition: all 0.3s ease;
-  width: 165px;
-  height: 300px;
-  object-fit: contain;
-}
-
-.microsoft-logo:hover {
-  transform: translateX(-50%) scale(1.02);
-}
-
-.microsoft-logo .logo-image:hover {
-  filter: drop-shadow(0 0 20px rgba(255, 255, 255, 0.8));
-}
-
-/* Main Title Styling */
-.main-title {
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
-  top: 255px; /* Shift texts up without changing other sections */
-  z-index: 20;
-  text-align: center;
-  padding: 20px 40px;
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.main-title::before { content: none; }
-
-.main-title .shiny-title {
-  font-family: var(--font-anton), sans-serif;
-  font-size: 3.8rem;
-  font-weight: 400;
-  letter-spacing: 0.18em; /* slightly more spread */
-  color: #4cc9ff;
-  white-space: nowrap;
-  margin: 0;
-  line-height: 1;
-  text-align: center;
-}
-
-.main-title .subtitle {
-  font-family: var(--font-lexend-zetta), sans-serif;
-  font-size: 1.75rem;
-  font-weight: 700; /* Bold */
-  letter-spacing: 1.0em; /* Tighter */
-  color: #ffffff;
-  text-align: center;
-  margin-top: 60px; /* Adjusted spacing */
-  margin: 0;
-  line-height: 1;
-  display: block;
-}
-
-/* Group Photo Styling */
-.group-photo-container {
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
-  top: 380px; /* Pushed further down */
-  z-index: 20;
-  width: 1728px;
-  height: 137px;
-  overflow: hidden;
-}
-
-.group-photo {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: center;
-  filter: grayscale(100%) brightness(0.8);
-  border: 2px solid #ffffff;
-  transition: all 0.3s ease;
-  cursor: pointer;
-}
-
-.group-photo:hover {
-  filter: grayscale(0%) brightness(1);
-  transform: scale(1.02);
-  border: 3px solid #ffffff;
-  box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
-}
-
-/* Call to Action Button */
-.cta-container {
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
-  top: 543px; /* keep base position */
-  z-index: 20;
-  display: flex;
-  justify-content: center;
-}
-
-/* Journey Text Styling */
-.journey-text-container {
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
-  top: 615px; /* Slightly higher */
-  z-index: 20;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 1.8rem; /* Reduced */
-  font-weight: 600; /* match CTA visual weight */
-  color: #ffffff;
-  white-space: nowrap;
-}
-
-.journey-prefix {
-  color: #ffffff;
-  margin-right: 8px;
-  flex-shrink: 0;
-}
-
-.journey-typing-wrapper {
-  display: inline-block;
-  min-width: 140px;
-  width: fit-content;
-  text-align: left;
-}
-
-.journey-typing {
-  display: inline-block;
-}
-
-/* Sticky Navbar - no container needed */
-
-/* Base: no glow until hover */
-.glow-card::before {
-  content: "";
-  position: absolute;
-  inset: -40px;
-  border-radius: inherit;
-  pointer-events: none;
-
-  background: radial-gradient(
-    circle at center,
-    rgba(255, 255, 255, 0.85),   /* bright white highlight */
-    rgba(76, 201, 255, 0.75),    /* neon cyan */
-    rgba(170, 191, 255, 0.50),   /* soft blue edge */
-    transparent 70%
-  );
-
-  filter: blur(60px);
-  opacity: 0;
-  transform: scale(1.2);
-  transition: opacity 0.35s ease, transform 0.35s ease;
-  z-index: -1;
-}
-
-.glow-card:hover::before {
-  opacity: 1;
-  transform: scale(1.1);
+  /* Smooth scrolling */
+  html {
+    scroll-behavior: smooth;
+  }
 }
