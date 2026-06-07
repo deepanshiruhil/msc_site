@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono, Anton, Lexend_Zetta } from "next/font/google";
+import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -12,21 +12,11 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-const anton = Anton({
-  variable: "--font-anton",
-  subsets: ["latin"],
-  weight: "400",
-});
-
-const lexendZetta = Lexend_Zetta({
-  variable: "--font-lexend-zetta",
-  subsets: ["latin"],
-  weight: "400",
-});
-
 export const metadata: Metadata = {
-  title: "MSC IGDTUW",
-  description: "Microsoft Student Chapter - IGDTUW",
+  title: "MSC IGDTUW — Build. Collaborate. Lead.",
+  description:
+    "Microsoft Student Chapter at IGDTUW — powering hackathons, workshops, " +
+    "mentorship, and Microsoft-backed resources for women technologists in Delhi.",
 };
 
 export default function RootLayout({
@@ -35,9 +25,33 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
+    // suppressHydrationWarning is required so React doesn't complain about
+    // the "dark" class being added before hydration by our inline script below.
     <html lang="en" suppressHydrationWarning>
+      <head>
+        {/*
+          This tiny inline script runs synchronously BEFORE the first paint,
+          so the user never sees a flash of the wrong theme.
+          It reads localStorage and applies the "dark" class immediately.
+        */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              (function () {
+                try {
+                  var saved = localStorage.getItem('theme');
+                  var prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+                  if (saved === 'dark' || (!saved && prefersDark)) {
+                    document.documentElement.classList.add('dark');
+                  }
+                } catch (_) {}
+              })();
+            `,
+          }}
+        />
+      </head>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} ${anton.variable} ${lexendZetta.variable} antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         {children}
       </body>
