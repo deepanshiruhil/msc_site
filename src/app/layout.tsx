@@ -1,60 +1,64 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
-
 export const metadata: Metadata = {
-  title: "MSC IGDTUW — Build. Collaborate. Lead.",
-  description:
-    "Microsoft Student Chapter at IGDTUW — powering hackathons, workshops, " +
-    "mentorship, and Microsoft-backed resources for women technologists in Delhi.",
+  title: "MSC IGDTUW",
+  description: "Microsoft Student Chapter - IGDTUW",
 };
 
 export default function RootLayout({
   children,
-}: Readonly<{
+}: {
   children: React.ReactNode;
-}>) {
+}) {
   return (
-    // suppressHydrationWarning is required so React doesn't complain about
-    // the "dark" class being added before hydration by our inline script below.
     <html lang="en" suppressHydrationWarning>
       <head>
-        {/*
-          This tiny inline script runs synchronously BEFORE the first paint,
-          so the user never sees a flash of the wrong theme.
-          It reads localStorage and applies the "dark" class immediately.
-        */}
+        {/* 1. No-flash theme script — runs before first paint */}
         <script
           dangerouslySetInnerHTML={{
             __html: `
-              (function () {
+              (function(){
                 try {
-                  var saved = localStorage.getItem('theme');
-                  var prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-                  if (saved === 'dark' || (!saved && prefersDark)) {
+                  var s = localStorage.getItem('theme');
+                  var p = window.matchMedia('(prefers-color-scheme: dark)').matches;
+                  if (s === 'dark' || (!s && p)) {
                     document.documentElement.classList.add('dark');
                   }
-                } catch (_) {}
+                } catch(_){}
+              })();
+            `,
+          }}
+        />
+        {/* 2. Scroll-reveal observer — wires .reveal and .reveal-stagger */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              (function(){
+                function init(){
+                  var els = document.querySelectorAll('.reveal, .reveal-stagger');
+                  if (!els.length) return;
+                  var obs = new IntersectionObserver(function(entries){
+                    entries.forEach(function(e){
+                      if(e.isIntersecting){
+                        e.target.classList.add('visible');
+                        obs.unobserve(e.target);
+                      }
+                    });
+                  }, { threshold: 0.12 });
+                  els.forEach(function(el){ obs.observe(el); });
+                }
+                if (document.readyState === 'loading') {
+                  document.addEventListener('DOMContentLoaded', init);
+                } else {
+                  init();
+                }
               })();
             `,
           }}
         />
       </head>
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
-        {children}
-      </body>
+      <body>{children}</body>
     </html>
   );
 }
