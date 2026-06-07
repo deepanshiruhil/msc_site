@@ -1,64 +1,63 @@
 @import "tailwindcss";
 
-/* ═══════════════════════════════════════════════
-   MSC IGDTUW — Design System
-   Brand blue: #0078D4 (Microsoft/MSC blue)
-   Blue shades: #005A9E (deep) · #0078D4 (base) · #50A8FF (light)
-   Font: Helvetica Neue → system-ui fallback
-═══════════════════════════════════════════════ */
+/* ═══════════════════════════════════════════════════
+   MSC IGDTUW — Design tokens
+   Brand: #0078D4 (MSC blue) · #50A8FF (light blue)
+         #001A3A (deep navy) · #0D1B3E (mid navy)
+   Font: Helvetica Neue throughout
+═══════════════════════════════════════════════════ */
 
 @theme {
-  /* Fonts */
   --font-sans: "Helvetica Neue", Helvetica, Arial, system-ui, sans-serif;
 
-  /* MSC Brand Blues */
-  --color-msc-deep:   #005A9E;
-  --color-msc-blue:   #0078D4;
-  --color-msc-mid:    #2B8FE0;
-  --color-msc-light:  #50A8FF;
-  --color-msc-pale:   #A8D4FF;
+  /* Brand blues */
+  --color-msc-blue:  #0078D4;
+  --color-msc-light: #50A8FF;
+  --color-msc-pale:  #A8D4FF;
+  --color-msc-deep:  #005A9E;
+  --color-msc-navy:  #0D1B3E;
 
-  /* ── LIGHT MODE (default) ── */
-  --color-background:        #F8F9FF;
-  --color-foreground:        #0D1117;
-  --color-card:              #FFFFFF;
-  --color-card-foreground:   #0D1117;
-  --color-primary:           #0078D4;
-  --color-primary-foreground:#FFFFFF;
-  --color-secondary:         #EEF4FF;
-  --color-secondary-foreground: #005A9E;
-  --color-muted:             #F0F4FA;
-  --color-muted-foreground:  #5A6474;
-  --color-accent:            #E0EDFF;
-  --color-accent-foreground: #0078D4;
-  --color-border:            #D0DCEC;
-  --color-input:             #E4EDF8;
-  --color-ring:              #0078D4;
+  /* ── DARK MODE (default — matches original site) ── */
+  --color-background:           #070E1C;
+  --color-foreground:           #E8F0FF;
+  --color-card:                 rgba(13, 27, 62, 0.6);
+  --color-card-foreground:      #E8F0FF;
+  --color-primary:              #0078D4;
+  --color-primary-foreground:   #FFFFFF;
+  --color-secondary:            #0D1B3E;
+  --color-secondary-foreground: #A8D4FF;
+  --color-muted:                #0D1B3E;
+  --color-muted-foreground:     #7A9CC8;
+  --color-accent:               #0078D4;
+  --color-accent-foreground:    #FFFFFF;
+  --color-border:               rgba(0, 120, 212, 0.18);
+  --color-input:                rgba(0, 120, 212, 0.12);
+  --color-ring:                 #0078D4;
   --radius: 0.75rem;
 }
 
-/* ── DARK MODE ── */
-.dark {
-  --color-background:        #0A0F1E;
-  --color-foreground:        #E8EEFF;
-  --color-card:              #111827;
-  --color-card-foreground:   #E8EEFF;
-  --color-primary:           #50A8FF;
-  --color-primary-foreground:#0A0F1E;
-  --color-secondary:         #1A2540;
-  --color-secondary-foreground: #A8D4FF;
-  --color-muted:             #161F35;
-  --color-muted-foreground:  #7A8DAA;
-  --color-accent:            #1E3058;
-  --color-accent-foreground: #50A8FF;
-  --color-border:            #1E2D4A;
-  --color-input:             #1A2540;
-  --color-ring:              #50A8FF;
+/* ── LIGHT MODE ── warm blue-white, not stark white */
+.light {
+  --color-background:           #EFF5FF;
+  --color-foreground:           #06132A;
+  --color-card:                 rgba(255, 255, 255, 0.85);
+  --color-card-foreground:      #06132A;
+  --color-primary:              #0078D4;
+  --color-primary-foreground:   #FFFFFF;
+  --color-secondary:            #D6E8FF;
+  --color-secondary-foreground: #005A9E;
+  --color-muted:                #E0EEFF;
+  --color-muted-foreground:     #3A5A8A;
+  --color-accent:               #C2DEFF;
+  --color-accent-foreground:    #0078D4;
+  --color-border:               rgba(0, 120, 212, 0.2);
+  --color-input:                rgba(0, 120, 212, 0.1);
+  --color-ring:                 #0078D4;
 }
 
-/* ══════════════════════════════════════════
-   BASE STYLES
-══════════════════════════════════════════ */
+/* ═══════════════════════════════════════════════════
+   BASE — font, size, smoothing
+═══════════════════════════════════════════════════ */
 @layer base {
   html {
     scroll-behavior: smooth;
@@ -69,162 +68,167 @@
     background-color: var(--color-background);
     color: var(--color-foreground);
     font-family: "Helvetica Neue", Helvetica, Arial, system-ui, sans-serif;
-    font-size: 1.0625rem; /* 17px base — slightly larger than default 16px */
-    line-height: 1.7;
+    font-size: 1.125rem;       /* 18px — up from 16px default */
+    line-height: 1.75;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
 
-  h1, h2, h3, h4, h5, h6 {
+  /* Headings — much larger, tight tracking */
+  h1 {
+    font-family: "Helvetica Neue", Helvetica, Arial, system-ui, sans-serif;
+    font-weight: 800;
+    font-size: clamp(2.8rem, 7vw, 6rem);
+    letter-spacing: -0.02em;
+    line-height: 1.08;
+  }
+  h2 {
     font-family: "Helvetica Neue", Helvetica, Arial, system-ui, sans-serif;
     font-weight: 700;
+    font-size: clamp(2rem, 4vw, 3.25rem);
     letter-spacing: -0.02em;
     line-height: 1.15;
   }
-
-  /* Larger base sizes for headings */
-  h1 { font-size: clamp(2.5rem, 6vw, 5rem); }
-  h2 { font-size: clamp(1.75rem, 3.5vw, 2.75rem); }
-  h3 { font-size: clamp(1.25rem, 2.5vw, 1.75rem); }
-
-  p {
-    font-size: clamp(1rem, 1.5vw, 1.125rem);
+  h3 {
+    font-family: "Helvetica Neue", Helvetica, Arial, system-ui, sans-serif;
+    font-weight: 600;
+    font-size: clamp(1.4rem, 2.5vw, 2rem);
+    line-height: 1.25;
+  }
+  p, li {
+    font-size: clamp(1rem, 1.4vw, 1.2rem);
+    line-height: 1.8;
+  }
+  nav a, nav button {
+    font-size: 1.0625rem;
   }
 }
 
-/* ══════════════════════════════════════════
+/* ═══════════════════════════════════════════════════
    GRADIENT BACKGROUNDS
-   Used as section backgrounds & hero
-══════════════════════════════════════════ */
+   These classes are applied directly in the components
+═══════════════════════════════════════════════════ */
 @layer utilities {
 
-  /* Light mode hero gradient */
-  .bg-gradient-hero-light {
-    background: linear-gradient(
-      135deg,
-      #F0F6FF 0%,
-      #E0EDFF 35%,
-      #F8F9FF 70%,
-      #EEF4FF 100%
-    );
+  /* Dark gradient — matches the original deep navy look */
+  .bg-msc-dark {
+    background:
+      radial-gradient(ellipse 80% 50% at 50% -10%, rgba(0,120,212,0.25) 0%, transparent 60%),
+      radial-gradient(ellipse 60% 40% at 80% 80%, rgba(0,90,158,0.15) 0%, transparent 55%),
+      linear-gradient(160deg, #040C1E 0%, #070E1C 40%, #0A1530 70%, #070E1C 100%);
   }
 
-  /* Dark mode hero gradient */
-  .bg-gradient-hero-dark {
-    background: linear-gradient(
-      135deg,
-      #0A0F1E 0%,
-      #0D1B3E 35%,
-      #0A0F1E 70%,
-      #071428 100%
-    );
+  /* Light gradient — blue-tinted white, not flat */
+  .bg-msc-light {
+    background:
+      radial-gradient(ellipse 80% 50% at 50% -10%, rgba(0,120,212,0.12) 0%, transparent 60%),
+      radial-gradient(ellipse 60% 40% at 80% 80%, rgba(80,168,255,0.08) 0%, transparent 55%),
+      linear-gradient(160deg, #E8F2FF 0%, #EFF5FF 40%, #E0ECFF 70%, #EFF5FF 100%);
   }
 
-  /* Section gradient — light subtle blue wash */
-  .bg-gradient-section-light {
-    background: linear-gradient(
-      180deg,
-      #F8F9FF 0%,
-      #EEF4FF 50%,
-      #F8F9FF 100%
-    );
+  /* Section divider — subtle darker band */
+  .bg-msc-section {
+    background: rgba(0, 120, 212, 0.04);
+    border-top: 1px solid rgba(0, 120, 212, 0.1);
+    border-bottom: 1px solid rgba(0, 120, 212, 0.1);
   }
 
-  /* Section gradient — dark */
-  .bg-gradient-section-dark {
-    background: linear-gradient(
-      180deg,
-      #0A0F1E 0%,
-      #0D1B3E 50%,
-      #0A0F1E 100%
-    );
-  }
+  /* Blue text utilities — for emphasis words */
+  .text-msc          { color: #0078D4; }
+  .text-msc-light    { color: #50A8FF; }
+  .text-msc-pale     { color: #A8D4FF; }
 
-  /* Blue accent text — for keywords */
-  .text-msc-blue  { color: #0078D4; }
-  .text-msc-light { color: #50A8FF; }
-  .text-msc-deep  { color: #005A9E; }
-
-  /* Blue gradient text — for hero words */
-  .text-gradient-blue {
-    background: linear-gradient(135deg, #0078D4 0%, #50A8FF 100%);
+  /* Gradient text — hero keywords */
+  .text-msc-gradient {
+    background: linear-gradient(120deg, #0078D4 0%, #50A8FF 60%, #A8D4FF 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
   }
 
-  /* Glowing blue border card */
-  .card-glow {
-    border: 1px solid rgba(0, 120, 212, 0.2);
-    box-shadow: 0 0 0 0 rgba(0, 120, 212, 0);
-    transition: box-shadow 0.3s ease, border-color 0.3s ease;
-  }
-  .card-glow:hover {
-    border-color: rgba(0, 120, 212, 0.5);
-    box-shadow: 0 0 24px rgba(0, 120, 212, 0.15);
+  /* Cyan glow text — matches original "MICROSOFT STUDENT CHAPTER" style */
+  .text-msc-glow {
+    color: #50A8FF;
+    text-shadow:
+      0 0 20px rgba(80,168,255,0.6),
+      0 0 40px rgba(0,120,212,0.3);
   }
 }
 
-/* ══════════════════════════════════════════
-   SCROLL-REVEAL ANIMATION
-   Add class="reveal" to any section/element.
-   JS in layout adds "visible" on scroll.
-══════════════════════════════════════════ */
+/* ═══════════════════════════════════════════════════
+   SCROLL-REVEAL — .reveal fades + slides up on scroll
+   JS in layout.tsx triggers .visible class
+═══════════════════════════════════════════════════ */
 .reveal {
   opacity: 0;
-  transform: translateY(32px);
-  transition: opacity 0.65s cubic-bezier(0.22, 1, 0.36, 1),
-              transform 0.65s cubic-bezier(0.22, 1, 0.36, 1);
+  transform: translateY(36px);
+  transition:
+    opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
 }
 .reveal.visible {
   opacity: 1;
   transform: translateY(0);
 }
 
-/* Staggered children */
+/* Staggered children inside a .reveal-stagger parent */
 .reveal-stagger > * {
   opacity: 0;
-  transform: translateY(24px);
-  transition: opacity 0.5s cubic-bezier(0.22, 1, 0.36, 1),
-              transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+  transform: translateY(28px);
+  transition:
+    opacity 0.55s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.55s cubic-bezier(0.22, 1, 0.36, 1);
 }
-.reveal-stagger.visible > *:nth-child(1) { opacity:1; transform:none; transition-delay: 0.05s; }
-.reveal-stagger.visible > *:nth-child(2) { opacity:1; transform:none; transition-delay: 0.15s; }
-.reveal-stagger.visible > *:nth-child(3) { opacity:1; transform:none; transition-delay: 0.25s; }
-.reveal-stagger.visible > *:nth-child(4) { opacity:1; transform:none; transition-delay: 0.35s; }
-.reveal-stagger.visible > *:nth-child(5) { opacity:1; transform:none; transition-delay: 0.45s; }
-.reveal-stagger.visible > *:nth-child(6) { opacity:1; transform:none; transition-delay: 0.55s; }
-.reveal-stagger.visible > *:nth-child(7) { opacity:1; transform:none; transition-delay: 0.65s; }
-.reveal-stagger.visible > *:nth-child(8) { opacity:1; transform:none; transition-delay: 0.75s; }
-.reveal-stagger.visible > *:nth-child(n+9) { opacity:1; transform:none; transition-delay: 0.8s; }
+.reveal-stagger.visible > *:nth-child(1)  { opacity:1; transform:none; transition-delay:0.05s; }
+.reveal-stagger.visible > *:nth-child(2)  { opacity:1; transform:none; transition-delay:0.12s; }
+.reveal-stagger.visible > *:nth-child(3)  { opacity:1; transform:none; transition-delay:0.19s; }
+.reveal-stagger.visible > *:nth-child(4)  { opacity:1; transform:none; transition-delay:0.26s; }
+.reveal-stagger.visible > *:nth-child(5)  { opacity:1; transform:none; transition-delay:0.33s; }
+.reveal-stagger.visible > *:nth-child(6)  { opacity:1; transform:none; transition-delay:0.40s; }
+.reveal-stagger.visible > *:nth-child(7)  { opacity:1; transform:none; transition-delay:0.47s; }
+.reveal-stagger.visible > *:nth-child(8)  { opacity:1; transform:none; transition-delay:0.54s; }
+.reveal-stagger.visible > *:nth-child(9)  { opacity:1; transform:none; transition-delay:0.61s; }
+.reveal-stagger.visible > *:nth-child(10) { opacity:1; transform:none; transition-delay:0.68s; }
+.reveal-stagger.visible > *:nth-child(11) { opacity:1; transform:none; transition-delay:0.75s; }
+.reveal-stagger.visible > *:nth-child(12) { opacity:1; transform:none; transition-delay:0.82s; }
+.reveal-stagger.visible > *:nth-child(n+13){ opacity:1; transform:none; transition-delay:0.88s; }
 
-/* ══════════════════════════════════════════
-   SPONSOR GRID — colour logos, hover lift
-══════════════════════════════════════════ */
+/* ═══════════════════════════════════════════════════
+   SPONSOR GRID CARDS
+═══════════════════════════════════════════════════ */
 .sponsor-card {
-  background: var(--color-card);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius);
-  padding: 1.25rem;
   display: flex;
   align-items: center;
   justify-content: center;
+  padding: 1.5rem 1rem;
+  border-radius: 0.875rem;
+  background: rgba(13, 27, 62, 0.55);
+  border: 1px solid rgba(0, 120, 212, 0.2);
   aspect-ratio: 3 / 2;
-  transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+  backdrop-filter: blur(8px);
+  transition:
+    transform 0.28s cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 0.28s ease,
+    border-color 0.28s ease;
+}
+.light .sponsor-card {
+  background: rgba(255, 255, 255, 0.75);
+  border-color: rgba(0, 120, 212, 0.15);
 }
 .sponsor-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 8px 28px rgba(0, 120, 212, 0.14);
-  border-color: rgba(0, 120, 212, 0.35);
+  transform: translateY(-5px) scale(1.02);
+  box-shadow:
+    0 8px 32px rgba(0, 120, 212, 0.22),
+    0 2px 8px rgba(0,0,0,0.15);
+  border-color: rgba(0, 120, 212, 0.5);
 }
 .sponsor-card img {
   object-fit: contain;
   max-height: 2.75rem;
   width: auto;
-  /* Full colour — no greyscale */
-  filter: none;
-  transition: transform 0.2s ease;
+  filter: none;            /* full colour — no greyscale */
+  transition: transform 0.22s ease;
 }
 .sponsor-card:hover img {
-  transform: scale(1.06);
+  transform: scale(1.07);
 }
