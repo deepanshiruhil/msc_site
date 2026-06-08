@@ -5,7 +5,7 @@ import Footer from "@/components/Footer";
 
 export const metadata: Metadata = {
   title: "MSC-IGDTUW | Microsoft Student Chapter",
-  description: "IGDTUW's Microsoft Student Chapter — where women technologists run hackathons, host industry sessions, and shape each other's careers.",
+  description: "IGDTUW's Microsoft Student Chapter",
 };
 
 export default function RootLayout({
