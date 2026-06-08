@@ -7,11 +7,8 @@ export default function HomePage() {
   return (
     <>
       <HeroSection />
-      <div className="divider" style={{ maxWidth: "80%", margin: "0 auto" }} />
       <GallerySection />
-      <div className="divider" style={{ maxWidth: "80%", margin: "0 auto" }} />
       <SponsorsSection />
-      <div className="divider" style={{ maxWidth: "80%", margin: "0 auto" }} />
       <FAQSection />
     </>
   );
