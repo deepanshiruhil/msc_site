@@ -2,44 +2,57 @@
 
 import Image from "next/image";
 
-// Update with real logo paths. Keep all logos in /public/images/sponsors/
 const SPONSORS = [
-  { name: "Rise In",        logo: "/images/sponsors/risein.png"        },
-  { name: "HackerRank",     logo: "/images/sponsors/hackerrank.png"    },
-  { name: "DoraHacks",      logo: "/images/sponsors/dorahacks.png"     },
-  { name: "GeeksForGeeks",  logo: "/images/sponsors/geeksforgeeks.png" },
-  { name: "Unstop",         logo: "/images/sponsors/unstop.png"        },
-  { name: "Certopus",       logo: "/images/sponsors/certopus.png"      },
-  { name: "AlgoPrep",       logo: "/images/sponsors/algoprep.png"      },
-  { name: "StockEdge",      logo: "/images/sponsors/stockedge.png"     },
+  { name: "Rise In",           logo: "/images/risein.png" },
+  { name: "AlgoPrep",          logo: "/images/algoprep.png" },
+  { name: "DoraHacks",         logo: "/images/dorahacks.png" },
+  { name: "HackerRank",        logo: "/images/hackerrank.png" },
+  { name: "GeeksForGeeks",     logo: "/images/gfg.png" },
+  { name: "InterviewBuddy",    logo: "/images/interviewbuddy.png" },
+  { name: "Unstop",            logo: "/images/unstop.png" },
+  { name: "Eduquest Education",logo: "/images/eduquesteducation.jpeg" },
+  { name: "My Certificate",    logo: "/images/mycertificate.png" },
+  { name: "Fueler",            logo: "/images/fueler.svg" },
+  { name: "Certopus",          logo: "/images/certopus.png" },
+  { name: "StockEdge",         logo: "/images/stockedge.png" },
+  { name: "Banyan Nation",     logo: "/images/banyannation.png" },
 ];
 
-export default function SponsorsSection() {
+export default function SponsorsGrid() {
   return (
-    <section className="section-pad" id="sponsors">
+    <section
+      id="sponsors"
+      className="section-pad"
+      style={{ fontFamily: "var(--font-sans)" }}
+    >
       <div className="container">
-        {/* Section header */}
-        <p className="section-label" style={{ marginBottom: "0.5rem" }}>
+        {/* Header */}
+        <p className="section-label" style={{ marginBottom: "0.4rem" }}>
           Backed by
         </p>
-        <h2 className="section-heading" style={{ marginBottom: "2.5rem" }}>
+        <h2 className="section-heading" style={{ marginBottom: "0.75rem" }}>
           Our <span className="accent">Sponsors</span>
         </h2>
+        <p
+          style={{
+            fontSize: "0.95rem",
+            color: "var(--text-muted)",
+            marginBottom: "2.5rem",
+            fontFamily: "var(--font-sans)",
+          }}
+        >
+          Supporters helping us build opportunities, skills, and community.
+        </p>
 
-        {/* Static grid — all logos visible */}
-        <div className="sponsors-grid section-lift" style={{ padding: "1.5rem" }}>
+        {/* Static grid — all logos always visible */}
+        <div className="sponsors-grid section-lift" style={{ padding: "1.25rem" }}>
           {SPONSORS.map((sponsor) => (
-            <div
-              key={sponsor.name}
-              className="sponsor-card"
-              title={sponsor.name}
-            >
-              {/* Try to render logo image, fall back to text */}
+            <div key={sponsor.name} className="sponsor-card" title={sponsor.name}>
               <div
                 style={{
                   position: "relative",
                   width: "100%",
-                  height: "60px",
+                  height: "52px",
                   display: "flex",
                   alignItems: "center",
                   justifyContent: "center",
@@ -52,32 +65,26 @@ export default function SponsorsSection() {
                   sizes="160px"
                   style={{ objectFit: "contain" }}
                   onError={(e) => {
-                    // Show text fallback
-                    const parent = (e.target as HTMLElement).parentElement;
-                    if (parent) {
-                      (e.target as HTMLImageElement).style.display = "none";
-                      const fallback = parent.querySelector(
-                        ".sponsor-fallback"
-                      ) as HTMLElement;
-                      if (fallback) fallback.style.display = "flex";
-                    }
+                    (e.target as HTMLImageElement).style.display = "none";
+                    const fb = (e.target as HTMLElement)
+                      .parentElement
+                      ?.querySelector(".sp-fb") as HTMLElement;
+                    if (fb) fb.style.display = "flex";
                   }}
                 />
-                {/* Text fallback */}
                 <span
-                  className="sponsor-fallback"
+                  className="sp-fb"
                   style={{
                     display: "none",
                     width: "100%",
                     height: "100%",
                     alignItems: "center",
                     justifyContent: "center",
-                    fontSize: "0.82rem",
+                    fontSize: "0.8rem",
                     fontWeight: 600,
                     color: "var(--text-secondary)",
-                    fontFamily: "var(--font-sans)",
-                    letterSpacing: "0.03em",
                     textAlign: "center",
+                    fontFamily: "var(--font-sans)",
                   }}
                 >
                   {sponsor.name}
@@ -91,7 +98,7 @@ export default function SponsorsSection() {
           style={{
             textAlign: "center",
             marginTop: "1rem",
-            fontSize: "0.8rem",
+            fontSize: "0.76rem",
             color: "var(--text-muted)",
             letterSpacing: "0.04em",
           }}
