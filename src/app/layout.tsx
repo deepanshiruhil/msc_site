@@ -1,16 +1,11 @@
-import { ThemeProvider } from "@/components/ThemeProvider";
-import Navbar from "@/components/Navbar";
+import type { Metadata } from "next";
+import "./globals.css";
+import GlassdoorNavbar from "@/components/GlassdoorNavbar";
 import Footer from "@/components/Footer";
 
 export const metadata: Metadata = {
   title: "MSC-IGDTUW | Microsoft Student Chapter",
-  description:
-    "IGDTUW's Microsoft Student Chapter- where women technologists run hackathons, host industry sessions, and shape each other's careers.",
-  openGraph: {
-    title: "MSC-IGDTUW",
-    description: "Build. Collaborate. Lead.",
-    siteName: "Microsoft Student Chapter IGDTUW",
-  },
+  description: "IGDTUW's Microsoft Student Chapter — where women technologists run hackathons, host industry sessions, and shape each other's careers.",
 };
 
 export default function RootLayout({
@@ -20,18 +15,10 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" data-theme="dark" suppressHydrationWarning>
-      <head>
-        {/*
-          Helvetica Neue is a system font on macOS/iOS
-        */}
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-      </head>
       <body>
-        <ThemeProvider>
-          <Navbar />
-          <main>{children}</main>
-          <Footer />
-        </ThemeProvider>
+        <GlassdoorNavbar />
+        <main>{children}</main>
+        <Footer />
       </body>
     </html>
   );
