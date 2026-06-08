@@ -1,9 +1,18 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import { ThemeProvider } from "@/components/ThemeProvider";
+import Navbar from "@/components/layout/Navbar";
+import Footer from "@/components/layout/Footer";
 
 export const metadata: Metadata = {
-  title: "MSC IGDTUW",
-  description: "Microsoft Student Chapter - IGDTUW",
+  title: "MSC-IGDTUW | Microsoft Student Chapter",
+  description:
+    "IGDTUW's Microsoft Student Chapter- where women technologists run hackathons, host industry sessions, and shape each other's careers.",
+  openGraph: {
+    title: "MSC-IGDTUW",
+    description: "Build. Collaborate. Lead.",
+    siteName: "Microsoft Student Chapter IGDTUW",
+  },
 };
 
 export default function RootLayout({
@@ -12,61 +21,20 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    // suppressHydrationWarning stops React warning about the class we add below
-    <html lang="en" suppressHydrationWarning>
+    <html lang="en" data-theme="dark" suppressHydrationWarning>
       <head>
         {/*
-          Runs BEFORE first paint — reads localStorage and applies
-          "light" class if the user previously chose light mode.
-          Default (no class) = dark mode, which matches the original site.
+          Helvetica Neue is a system font on macOS/iOS
         */}
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `
-              (function(){
-                try {
-                  var t = localStorage.getItem('msc-theme');
-                  if (t === 'light') {
-                    document.documentElement.classList.add('light');
-                  }
-                } catch(e){}
-              })();
-            `,
-          }}
-        />
-        {/*
-          Scroll-reveal observer.
-          Watches every .reveal and .reveal-stagger element.
-          Adds "visible" class when the element enters the viewport.
-        */}
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `
-              (function(){
-                function init(){
-                  var els = document.querySelectorAll('.reveal, .reveal-stagger');
-                  if (!els.length) return;
-                  var io = new IntersectionObserver(function(entries){
-                    entries.forEach(function(e){
-                      if (e.isIntersecting){
-                        e.target.classList.add('visible');
-                        io.unobserve(e.target);
-                      }
-                    });
-                  }, { threshold: 0.1 });
-                  els.forEach(function(el){ io.observe(el); });
-                }
-                if (document.readyState === 'loading'){
-                  document.addEventListener('DOMContentLoaded', init);
-                } else {
-                  init();
-                }
-              })();
-            `,
-          }}
-        />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
       </head>
-      <body>{children}</body>
+      <body>
+        <ThemeProvider>
+          <Navbar />
+          <main>{children}</main>
+          <Footer />
+        </ThemeProvider>
+      </body>
     </html>
   );
 }
