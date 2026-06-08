@@ -18,15 +18,24 @@ export default function HeroSection() {
         }}
       />
 
-      {/* Logo */}
-      <div style={{ marginBottom: "1.25rem", position: "relative", zIndex: 1 }}>
-        <Image src="/logo.png" alt="MSC IGDTUW" width={72} height={72} priority />
+      {/* Big centered logo */}
+      <div style={{ marginBottom: "1.5rem", position: "relative", zIndex: 1 }}>
+        <Image src="/logo.png" alt="MSC IGDTUW" width={120} height={120} priority />
       </div>
 
-      {/* Overline */}
+      {/* Large overline */}
       <p
-        className="section-label"
-        style={{ marginBottom: "1.25rem", position: "relative", zIndex: 1 }}
+        style={{
+          fontSize: "clamp(0.95rem, 2vw, 1.25rem)",
+          fontWeight: 700,
+          letterSpacing: "0.18em",
+          textTransform: "uppercase",
+          color: "var(--blue-mid)",
+          marginBottom: "1.5rem",
+          position: "relative",
+          zIndex: 1,
+          fontFamily: "var(--font-sans)",
+        }}
       >
         Microsoft Student Chapter · IGDTUW
       </p>
