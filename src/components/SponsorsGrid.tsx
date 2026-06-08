@@ -103,7 +103,6 @@ export default function SponsorsGrid() {
             letterSpacing: "0.04em",
           }}
         >
-          ↑ static grid · all logos visible · hover → gradient glow lifts the card
         </p>
       </div>
     </section>
